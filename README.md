@@ -1,2 +1,2 @@
 # javascript calculator
-![alt text](javascript_calculator/calc.PNG)
+![alt text](https://raw.githubusercontent.com/joshforcier/javascript_calculator/calc.PNG)
