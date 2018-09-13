@@ -61,42 +61,42 @@
             <div class="calc-keys">
                 <div class="row">          
                     <div class="btn-group">
-                        <button type="button" value="(" class="symbol-button">(</button> 
-                        <button type="button" value=")" class="symbol-button">)</button> 
-                        <button type="button" value="DEL" class="del-button" data-action="delete">DEL</button> 
-                        <button type="button" value="AC" class="del-button" data-action="clear">AC</button> 
+                        <button type="button" class="symbol-button">(</button> 
+                        <button type="button" class="symbol-button">)</button> 
+                        <button type="button" class="del-button" data-action="delete">DEL</button> 
+                        <button type="button" class="del-button" data-action="clear">AC</button> 
                     </div>
                 </div>
                 <div class="row">          
                     <div class="btn-group">       
-                        <button type="button" value="1" name="one" class="number-button">1</button> 
-                        <button type="button" value="2" name="two" class="number-button">2</button> 
-                        <button type="button" value="3" name="three" class="number-button">3</button> 
-                        <button type="button" value="&divide" class="symbol-button" data-action="divide">&divide;</button> 
+                        <button type="button" class="number-button">1</button> 
+                        <button type="button" class="number-button">2</button> 
+                        <button type="button" class="number-button">3</button> 
+                        <button type="button" class="symbol-button" data-action="divide">&divide;</button> 
                     </div>
                 </div>
                 <div class="row">          
                     <div class="btn-group">
-                        <button type="button" value="4" class="number-button">4</button> 
-                        <button type="button" value="5" class="number-button">5</button> 
-                        <button type="button" value="6" class="number-button">6</button> 
-                        <button type="button" value="&times" class="symbol-button" data-action="multiply">&times;</button>
+                        <button type="button" class="number-button">4</button> 
+                        <button type="button" class="number-button">5</button> 
+                        <button type="button" class="number-button">6</button> 
+                        <button type="button" class="symbol-button" data-action="multiply">&times;</button>
                     </div>
                 </div> 
                 <div class="row">          
                     <div class="btn-group">
-                        <button type="button" value="7" class="number-button">7</button> 
-                        <button type="button" value="8" class="number-button">8</button>
-                        <button type="button" value="9" class="number-button">9</button> 
-                        <button type="button" value="-" class="symbol-button" data-action="subtract">-</button> 
+                        <button type="button" class="number-button">7</button> 
+                        <button type="button" class="number-button">8</button>
+                        <button type="button" class="number-button">9</button> 
+                        <button type="button" class="symbol-button" data-action="subtract">-</button> 
                     </div>
                 </div>
                 <div class="row">          
                     <div class="btn-group">
-                        <button type="button" value="0" class="number-button">0</button> 
-                        <button type="button" value="." class="symbol-button">.</button> 
-                        <button type="button" value="=" id="equals" class="symbol-button" data-action="calculate">=</button>  
-                        <button type="button" value="+" class="symbol-button" data-action="add">+</button> 
+                        <button type="button" class="number-button">0</button> 
+                        <button type="button" class="symbol-button">.</button> 
+                        <button type="button" class="symbol-button" data-action="calculate">=</button>  
+                        <button type="button" class="symbol-button" data-action="add">+</button> 
                     </div>
                 </div>
             </div>
@@ -133,6 +133,14 @@ keys.addEventListener('click', e => {
         const display_num = display.textContent
         const previous_key_type = calculator.dataset.previous_key_type
 
+        function calc_action() 
+        {
+            key.classList.add('is-depressed')
+            calculator.dataset.previous_key_type = 'operator'
+            calculator.dataset.firstValue = display_num
+            calculator.dataset.operator = action
+        }
+
         Array.from(key.parentNode.children)
             .forEach(k => k.classList.remove('is-depressed'))
 
@@ -142,37 +150,25 @@ keys.addEventListener('click', e => {
             } else {
                 display.textContent = display_num + key_content
             }
-        }
-
+        }        
+        
         switch(action) {
 
             case 'add':
                 display.textContent = '+'
-                key.classList.add('is-depressed')
-                calculator.dataset.previous_key_type = 'operator'
-                calculator.dataset.firstValue = display_num
-                calculator.dataset.operator = action
+                calc_action();
                 break;
             case 'subtract':
                 display.textContent = '-'
-                key.classList.add('is-depressed')
-                calculator.dataset.previous_key_type = 'operator'
-                calculator.dataset.firstValue = display_num
-                calculator.dataset.operator = action
+                calc_action();
                 break;
             case 'multiply':
                 display.textContent = '*'
-                key.classList.add('is-depressed')
-                calculator.dataset.previous_key_type = 'operator'
-                calculator.dataset.firstValue = display_num
-                calculator.dataset.operator = action
+                calc_action();
                 break;
             case 'divide':
                 display.textContent = '/'
-                key.classList.add('is-depressed')
-                calculator.dataset.previous_key_type = 'operator'
-                calculator.dataset.firstValue = display_num
-                calculator.dataset.operator = action
+                calc_action();
                 break;
             case 'decimal':
                 display.textContent = display_num + '.'
