@@ -1,0 +1,199 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style type="text/css">
+        
+    .number-button, .del-button, .symbol-button{
+        display: grid;
+        font-size: 24px;
+        border: solid;
+        border-width: 1px;
+        border-radius: 10px;
+        border-color: #000000;
+        background-color: #a6a6a6;
+        color: #ffffff;
+        margin-bottom: 5px;
+    }
+
+    .del-button {
+        background-color: #ff4d4d;
+    }
+
+    .symbol-button {
+        background-color: #ffa64d
+    }
+
+    button {
+        width: 75px;
+        height: 50px;
+    }
+
+    .display {        
+        width: 305px;
+        margin-bottom: 10px;
+        font-size: 30px;
+        color: #ffffff;
+        border-radius: 10px;
+        text-align: right;
+    }
+
+    form {
+        background-color: #000000;
+        border: solid;
+        border-width: 3px;
+        border-radius: 10px;
+        width: 315px;
+    }
+
+    </style>
+</head>
+
+<body>
+    <form>
+        <div class="calculator">
+
+            <div class="display">0</div>
+            
+            <div class="calc-keys">
+                <div class="row">          
+                    <div class="btn-group">
+                        <button type="button" value="(" class="symbol-button">(</button> 
+                        <button type="button" value=")" class="symbol-button">)</button> 
+                        <button type="button" value="DEL" class="del-button" data-action="delete">DEL</button> 
+                        <button type="button" value="AC" class="del-button" data-action="clear">AC</button> 
+                    </div>
+                </div>
+                <div class="row">          
+                    <div class="btn-group">       
+                        <button type="button" value="1" name="one" class="number-button">1</button> 
+                        <button type="button" value="2" name="two" class="number-button">2</button> 
+                        <button type="button" value="3" name="three" class="number-button">3</button> 
+                        <button type="button" value="&divide" class="symbol-button" data-action="divide">&divide;</button> 
+                    </div>
+                </div>
+                <div class="row">          
+                    <div class="btn-group">
+                        <button type="button" value="4" class="number-button">4</button> 
+                        <button type="button" value="5" class="number-button">5</button> 
+                        <button type="button" value="6" class="number-button">6</button> 
+                        <button type="button" value="&times" class="symbol-button" data-action="multiply">&times;</button>
+                    </div>
+                </div> 
+                <div class="row">          
+                    <div class="btn-group">
+                        <button type="button" value="7" class="number-button">7</button> 
+                        <button type="button" value="8" class="number-button">8</button>
+                        <button type="button" value="9" class="number-button">9</button> 
+                        <button type="button" value="-" class="symbol-button" data-action="subtract">-</button> 
+                    </div>
+                </div>
+                <div class="row">          
+                    <div class="btn-group">
+                        <button type="button" value="0" class="number-button">0</button> 
+                        <button type="button" value="." class="symbol-button">.</button> 
+                        <button type="button" value="=" id="equals" class="symbol-button" data-action="calculate">=</button>  
+                        <button type="button" value="+" class="symbol-button" data-action="add">+</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+<script type="text/javascript">   
+
+const calculate = (number1, operator, number2) => {
+    let result = ''
+    if (operator === 'add') {
+        result = parseFloat(number1) + parseFloat(number2)
+    } else if (operator === 'subtract') {
+        result = parseFloat(number1) - parseFloat(number2)
+    } else if (operator === 'multiply') {
+        result = parseFloat(number1) * parseFloat(number2)
+    } else if (operator === 'divide') {
+        result = parseFloat(number1) / parseFloat(number2)
+    }
+
+    return result
+}
+
+const calculator = document.querySelector('.calculator')
+const display = calculator.querySelector('.display')
+const keys = calculator.querySelector('.calc-keys')
+
+keys.addEventListener('click', e => {
+    if (e.target.matches('button')) {
+        const key = e.target
+        const action = key.dataset.action
+        const key_content = key.textContent
+        const display_num = display.textContent
+        const previous_key_type = calculator.dataset.previous_key_type
+
+        Array.from(key.parentNode.children)
+            .forEach(k => k.classList.remove('is-depressed'))
+
+        if (!action) {
+            if (display_num === '0' || previous_key_type === 'operator') {
+                display.textContent = key_content
+            } else {
+                display.textContent = display_num + key_content
+            }
+        }
+
+        switch(action) {
+
+            case 'add':
+                display.textContent = '+'
+                key.classList.add('is-depressed')
+                calculator.dataset.previous_key_type = 'operator'
+                calculator.dataset.firstValue = display_num
+                calculator.dataset.operator = action
+                break;
+            case 'subtract':
+                display.textContent = '-'
+                key.classList.add('is-depressed')
+                calculator.dataset.previous_key_type = 'operator'
+                calculator.dataset.firstValue = display_num
+                calculator.dataset.operator = action
+                break;
+            case 'multiply':
+                display.textContent = '*'
+                key.classList.add('is-depressed')
+                calculator.dataset.previous_key_type = 'operator'
+                calculator.dataset.firstValue = display_num
+                calculator.dataset.operator = action
+                break;
+            case 'divide':
+                display.textContent = '/'
+                key.classList.add('is-depressed')
+                calculator.dataset.previous_key_type = 'operator'
+                calculator.dataset.firstValue = display_num
+                calculator.dataset.operator = action
+                break;
+            case 'decimal':
+                display.textContent = display_num + '.'
+                break;
+            case 'clear':
+                display.textContent = 0
+                break;
+            case 'delete':
+                display.textContent = 0
+                break;
+            case 'calculate':
+                const firstValue = calculator.dataset.firstValue
+                const operator = calculator.dataset.operator
+                const secondValue = display_num
+
+                display.textContent = calculate(firstValue, operator, secondValue)
+                break;
+        }        
+    }
+})
+
+</script>
+</body>
+</html>
