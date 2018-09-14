@@ -6,8 +6,7 @@
     <title>Calculator</title>
     <style type="text/css">
         
-    .number-button, .del-button, .symbol-button {
-        display: grid;
+    .number-button, .del-button, .symbol-button, .calc-button {        
         font-size: 24px;
         border: solid;
         border-width: 1px;
@@ -16,6 +15,11 @@
         background-color: #a6a6a6;
         color: #ffffff;
         margin-bottom: 5px;
+    }
+
+    .calc-button {
+        background-color: #ffa64d;
+        width: 155px;
     }
 
     .del-button {
@@ -34,7 +38,7 @@
     .display {        
         width: 305px;
         margin-bottom: 10px;
-        font-size: 30px;
+        font-size: 36px;
         color: #ffffff;
         border-radius: 10px;
         text-align: right;
@@ -59,15 +63,15 @@
             
             <div class="calc-keys">
                 <div class="row">          
-                    <div class="btn-group">
+                    <div>
                         <button type="button" class="symbol-button">(</button> 
                         <button type="button" class="symbol-button">)</button> 
-                        <button type="button" class="del-button" data-action="delete">DEL</button> 
+                        <button type="button" class="symbol-button">.</button>  
                         <button type="button" class="del-button" data-action="clear">AC</button> 
                     </div>
                 </div>
                 <div class="row">          
-                    <div class="btn-group">       
+                    <div>       
                         <button type="button" class="number-button">1</button> 
                         <button type="button" class="number-button">2</button> 
                         <button type="button" class="number-button">3</button> 
@@ -75,7 +79,7 @@
                     </div>
                 </div>
                 <div class="row">          
-                    <div class="btn-group">
+                    <div>
                         <button type="button" class="number-button">4</button> 
                         <button type="button" class="number-button">5</button> 
                         <button type="button" class="number-button">6</button> 
@@ -83,7 +87,7 @@
                     </div>
                 </div> 
                 <div class="row">          
-                    <div class="btn-group">
+                    <div>
                         <button type="button" class="number-button">7</button> 
                         <button type="button" class="number-button">8</button>
                         <button type="button" class="number-button">9</button> 
@@ -91,10 +95,9 @@
                     </div>
                 </div>
                 <div class="row">          
-                    <div class="btn-group">
-                        <button type="button" class="number-button">0</button> 
-                        <button type="button" class="symbol-button">.</button> 
-                        <button type="button" class="symbol-button" data-action="calculate">=</button>  
+                    <div>
+                        <button type="button" class="number-button">0</button>                         
+                        <button type="button" class="calc-button" data-action="calculate">=</button>  
                         <button type="button" class="symbol-button" data-action="add">+</button> 
                     </div>
                 </div>
@@ -173,9 +176,6 @@ keys.addEventListener('click', e => {
                 display.textContent = display_num + '.'
                 break;
             case 'clear':
-                display.textContent = 0
-                break;
-            case 'delete':
                 display.textContent = 0
                 break;
             case 'calculate':
